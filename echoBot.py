@@ -1,6 +1,8 @@
 import telebot
 import lolkek
 
+print("lol")
+
 token = "325324074:AAH2sjtsU4DRNz6R15U6zzkktzVqzCpUjuk"
 
 bot = telebot.TeleBot(token)
