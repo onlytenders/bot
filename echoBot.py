@@ -9,14 +9,14 @@ bot = telebot.TeleBot(token)
 
 @bot.message_handler(content_types = ["text"])
 def check_message(message):
-    if message.text == "Список студентов" :
-        for student in lolkek.getStudentsList():            
-            bot.send_message(message.chat.id, student[0])
-    elif message.text == "Оценка" :
-        bot.send_message(message.chat.id, lolkek.getMediumMarks())
-    elif message.text.isdigit():
-        bot.send_message(message.chat.id, "Имя: " + lolkek.getStudentByNumber(int(message.text))[0])
-        bot.send_message(message.chat.id, "Оценка: " + str(lolkek.getStudentByNumber(int(message.text))[1]))
-    else:
-        bot.send_message(message.chat.id, "Такой команды нет")
+    personInfo = {'Rakhat':'+77016738924',
+                          'Vlad':'+77758426915',
+                          'Oleg':'+77018539424',
+                          'Viktor':'+77777777777'}
+    lolilikek = message.text
+    lolilikek = lolilikek.lower()
+    try:
+        bot.send_message(message.chat.id, personInfo[lolilikek])
+    except:
+        bot.send_message(message.chat.id, 'i ne lol i ne kek')
 bot.polling(none_stop=True)
