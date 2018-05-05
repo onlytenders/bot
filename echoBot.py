@@ -1,22 +1,47 @@
 import telebot
-import lolkek
+import requests
+from datetime import datetime
+from telebot import types
 
 print("lol")
 
-token = "325324074:AAH2sjtsU4DRNz6R15U6zzkktzVqzCpUjuk"
+token = "518178480:AAHNjdNIAHBfJrPZGfJNTBTPLccNGvj1knQ"
 
 bot = telebot.TeleBot(token)
 
-@bot.message_handler(content_types = ["text"])
-def check_message(message):
-    personInfo = {'Rakhat':'+77016738924',
-                          'Vlad':'+77758426915',
-                          'Oleg':'+77018539424',
-                          'Viktor':'+77777777777'}
-    lolilikek = message.text
-    lolilikek = lolilikek.lower()
-    try:
-        bot.send_message(message.chat.id, personInfo[lolilikek])
-    except:
-        bot.send_message(message.chat.id, 'i ne lol i ne kek')
-bot.polling(none_stop=True)
+def getTimeNow():
+    return datetime.strftime(datetime.now(), '%d.%m.%Y %H:%M:%S')
+
+def writeToLog(who, text):
+    file = open("log.history", "a+", encoding="utf-8")
+    file.write(getTimeNow()+" "+str(who)+" "+text+'\n')
+    file.close()
+    
+
+@bot.message_handler(commands = ["start"])
+def start(message):
+    bot.send_message(message.chat.id, "你好，朋友！")
+    writeToLog(message.from_user.id, 'Started using this bot')
+    keyboard = types.ReplyKeyboardMarkup(resize_keyboard=True)
+    translateButton = types.KeyboardButton("Translate the word")
+    keyboard.add(translateButton)
+    meanButton = types.KeyboardButton("Learn the meaning of the word")
+    keyboard.add(meanButton)
+    courseButton = types.KeyboardButton("Learn the course dollar-tenge")
+    keyboard.add(courseButton)
+    bot.send_message(message.chat.id, "Choose the option: ", reply_markup=keyboard)
+
+try:   
+    bot.polling(none_stop=True)
+except:
+    writeToLog('bot', 'Starting error')
+
+
+
+
+
+
+
+
+
+
