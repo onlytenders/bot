@@ -30,6 +30,13 @@ def start(message):
     courseButton = types.KeyboardButton("Learn the course dollar-tenge")
     keyboard.add(courseButton)
     bot.send_message(message.chat.id, "Choose the option: ", reply_markup=keyboard)
+    bot.register_nest_step_handler(message, choiseUser)
+    
+def choiseUser(message):
+    if message.text == "Translate the word":
+        writeToLog('message.from_user.id', 'Choosed the translator')
+    
+    bot.send_message(message.chat.id, "Choose the option: ", reply_markup=keyboard)
 
 try:   
     bot.polling(none_stop=True)
